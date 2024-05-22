@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import Users from "./Users";
+import { fetchData } from "../../api/Api";
 
 const Search = () => {
   const [text, setText] = useState("");
@@ -8,10 +8,9 @@ const Search = () => {
 
   const searchUsers = async (text) => {
     try {
-      const response = await axios.get(
-        `https://api.github.com/search/users?q=${text}`
-      );
-      setUsers(response.data.items);
+      const response = await fetchData(`/search/users?q=${text}`);
+      setUsers(response.items);
+      console.log(response);
     } catch (error) {
       console.log("Error fetching data:", error);
     }
