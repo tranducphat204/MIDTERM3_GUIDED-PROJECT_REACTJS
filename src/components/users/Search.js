@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, createContext, useContext } from "react";
 import Users from "./Users";
 import { fetchData } from "../../api/Api";
-
+import React from "react";
 const Search = () => {
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
@@ -22,7 +22,7 @@ const Search = () => {
       alert("Please enter something.");
     } else {
       searchUsers(text);
-      setText("");
+      // setText("");
     }
   };
 
@@ -32,17 +32,22 @@ const Search = () => {
 
   const onChange = (e) => setText(e.target.value);
 
+  const TargetContext = React.createContext({ search: "" });
+  const { search = "" } = useContext(TargetContext);
+
   return (
     <div>
       <form onSubmit={onSubmit} className="form">
-        <input
-          type="text"
-          name="text"
-          id=""
-          placeholder="Search User"
-          value={text}
-          onChange={onChange}
-        />
+        <TargetContext.Provider value={text}>
+          <input
+            type="text"
+            name="text"
+            id=""
+            placeholder="Search User"
+            value={text}
+            onChange={onChange}
+          />
+        </TargetContext.Provider>
         <input
           type="submit"
           value="Search"
