@@ -1,4 +1,3 @@
-import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import Repos from "../repos/Repos.js";
@@ -21,12 +20,9 @@ const User = () => {
 
   const getUserRepos = async (username) => {
     try {
-      const response = await axios.get(
-        `https://api.github.com/users/${username}/repos`
-      );
-      const data = response.data;
-      console.log("This is data of repos",data);
-      setRepops(data);
+      const response = await fetchData(`users/${username}/repos`);
+      setRepops(response);
+      console.log("This is data of repos", response);
     } catch (error) {
       console.log("Error fetching data:", error.message);
     }
@@ -36,7 +32,6 @@ const User = () => {
     getUser(id);
     getUserRepos(id);
   }, [id]);
-
   
   const {
     name,
@@ -53,8 +48,6 @@ const User = () => {
     public_gists,
     hireable,
   } = user;
-
-  // const { avatar_url } = repos;
 
   return (
     <Fragment>

@@ -1,7 +1,8 @@
-import { useState, createContext, useContext } from "react";
+import { useState } from "react";
 import Users from "./Users";
 import { fetchData } from "../../api/Api";
 import React from "react";
+
 const Search = () => {
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
@@ -22,32 +23,32 @@ const Search = () => {
       alert("Please enter something.");
     } else {
       searchUsers(text);
-      // setText("");
+      localStorage.setItem("historySearch", text);
     }
   };
 
   const clearUsers = () => {
+    setText("");
     setUsers([]);
+    localStorage.clear();
   };
 
-  const onChange = (e) => setText(e.target.value);
-
-  const TargetContext = React.createContext({ search: "" });
-  const { search = "" } = useContext(TargetContext);
-
+  const onChange = (e) => {
+    setText(e.target.value);
+  };
+  const historySearch = localStorage.getItem("historySearch");
+ 
   return (
     <div>
       <form onSubmit={onSubmit} className="form">
-        <TargetContext.Provider value={text}>
-          <input
-            type="text"
-            name="text"
-            id=""
-            placeholder="Search User"
-            value={text}
-            onChange={onChange}
-          />
-        </TargetContext.Provider>
+        <input
+          type="text"
+          name="text"
+          id=""
+          placeholder="Search User"
+          value={text} 
+          onChange={onChange}
+        />
         <input
           type="submit"
           value="Search"
