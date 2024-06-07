@@ -4,10 +4,13 @@ import "./App.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { ThemeProvider } from "./ThemContext";
+import { SearchProvider } from "./HistoryContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ThemeProvider>
-    <App />
+    <SearchProvider>
+      <App />
+    </SearchProvider>
   </ThemeProvider>
 );
 

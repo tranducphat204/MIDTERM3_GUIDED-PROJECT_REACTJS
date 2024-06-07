@@ -1,19 +1,18 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import Users from "./Users";
 import { fetchData } from "../../api/Api";
 import React from "react";
 import { ThemeContext } from "../../ThemContext";
+import HistoryContext from "../../HistoryContext";
 
 const Search = () => {
-  const [text, setText] = useState("");
-  const [users, setUsers] = useState([]);
+  const { text, setText, users, setUsers } = useContext(HistoryContext);
   const { darkMode } = useContext(ThemeContext);
 
   const searchUsers = async (text) => {
     try {
       const response = await fetchData(`/search/users?q=${text}`);
       setUsers(response.items);
-      console.log(response);
     } catch (error) {
       console.log("Error fetching data:", error);
     }
@@ -38,7 +37,6 @@ const Search = () => {
   const onChange = (e) => {
     setText(e.target.value);
   };
-  const historySearch = localStorage.getItem("historySearch");
 
   return (
     <div>
