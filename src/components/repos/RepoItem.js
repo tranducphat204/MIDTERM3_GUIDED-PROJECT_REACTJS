@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { ThemeContext } from "../../ThemContext";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 const RepoItem = (props) => {
+  const { darkMode } = useContext(ThemeContext);
   return (
     <div className="card">
       <div className="card-body">
@@ -8,14 +12,14 @@ const RepoItem = (props) => {
         </p>
         <p className="text-underline">Clone URL: {props.repo.clone_url}</p>
         <p className="btn btn-success">Language: {props.repo.language}</p>
-        <a
-          href={props.repo.html_url}
-          className="btn btn-primary"
+        <Link
+          to={props.repo.html_url}
+          className={`btn ${darkMode ? "" : "btn-dark"}btn-sm my-1`}
           target="_blank"
           rel="noreferrer"
         >
           View Repo
-        </a>
+        </Link>
       </div>
     </div>
   );

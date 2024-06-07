@@ -1,11 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Users from "./Users";
 import { fetchData } from "../../api/Api";
 import React from "react";
+import { ThemeContext } from "../../ThemContext";
 
 const Search = () => {
   const [text, setText] = useState("");
   const [users, setUsers] = useState([]);
+  const { darkMode } = useContext(ThemeContext);
 
   const searchUsers = async (text) => {
     try {
@@ -37,7 +39,7 @@ const Search = () => {
     setText(e.target.value);
   };
   const historySearch = localStorage.getItem("historySearch");
- 
+
   return (
     <div>
       <form onSubmit={onSubmit} className="form">
@@ -46,13 +48,14 @@ const Search = () => {
           name="text"
           id=""
           placeholder="Search User"
-          value={text} 
+          value={text}
           onChange={onChange}
+          className={`${darkMode ? "bg-white" : ""}`}
         />
         <input
           type="submit"
           value="Search"
-          className="btn btn-success btn-block"
+          className={`btn btn-block ${darkMode ? "btn-white" : "btn-success"}`}
           id=""
         />
       </form>
