@@ -1,16 +1,17 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom/cjs/react-router-dom.min";
 import Repos from "../repos/Repos.js";
 import { fetchData } from "../../api/Api.js";
-
+import { ThemeContext } from "../../ThemContext.js";
 const User = () => {
   const { id } = useParams();
   const [user, setUser] = useState({});
   const [repos, setRepops] = useState([]);
-
+  const { darkMode } = useContext(ThemeContext);
+  
   const getUser = async (username) => {
     try {
-      const response = await fetchData(`/users/${username}`)
+      const response = await fetchData(`/users/${username}`);
       setUser(response);
       console.log("This is data of user", response);
     } catch (error) {
@@ -32,7 +33,7 @@ const User = () => {
     getUser(id);
     getUserRepos(id);
   }, [id]);
-  
+
   const {
     name,
     avatar_url,
@@ -80,7 +81,7 @@ const User = () => {
           )}
           <a
             href={html_url}
-            className="btn btn-dark my-1"
+            className={`btn my-1 ${darkMode ? "" : "btn-dark"}`}
             target="_blank"
             rel="noopener noreferrer"
           >
