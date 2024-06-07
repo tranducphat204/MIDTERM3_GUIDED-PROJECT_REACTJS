@@ -4,7 +4,7 @@ import { ThemeContext } from "../../ThemContext";
 
 const Navbar = () => {
   const { darkMode, setDarkMode } = useContext(ThemeContext);
-  console.log(darkMode);
+  
   return (
     <nav className={`navbar ${darkMode ? "bg-dark" : "bg-success"}`}>
       <h1>

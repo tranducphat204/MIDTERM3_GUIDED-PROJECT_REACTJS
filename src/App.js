@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { ThemeContext } from "./ThemContext";
 function App() {
   const { darkMode } = useContext(ThemeContext);
+
   return (
     <div className={`App ${darkMode ? "bg-dark" : ""}`}>
       <Router>

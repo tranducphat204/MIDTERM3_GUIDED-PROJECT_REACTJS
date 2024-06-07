@@ -79,14 +79,14 @@ const User = () => {
               <p>{bio}</p>
             </Fragment>
           )}
-          <a
-            href={html_url}
+          <Link
+            to={html_url}
             className={`btn my-1 ${darkMode ? "" : "btn-dark"}`}
             target="_blank"
             rel="noopener noreferrer"
           >
             Show Github Profile
-          </a>
+          </Link>
           <ul>
             <li>
               {login && (
@@ -106,9 +106,9 @@ const User = () => {
               {blog && (
                 <Fragment>
                   <strong>Website:</strong>
-                  <a href={blog} target="_blank" rel="noopener noreferrer">
+                  <Link to={blog} target="_blank" rel="noopener noreferrer">
                     {blog}
-                  </a>
+                  </Link>
                 </Fragment>
               )}
             </li>
